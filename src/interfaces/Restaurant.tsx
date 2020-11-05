@@ -36,6 +36,7 @@ export interface RestDashBoardState {
   colDefs: ColDef<keyof RestaurantRow>[];
   searchTerm: string|undefined;
   activeSearchTerm: string|undefined;
+  stateFilter: string;
 }
 
 export interface GridProps<T> {
