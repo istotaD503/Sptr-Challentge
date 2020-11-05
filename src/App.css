@@ -4,20 +4,24 @@
 
 .AppHeader {
   background-color: bisque;
+  margin: 0rem 1rem;
+  padding: 0.5rem;
 }
 
 .Grid {
   margin: 1rem;
-  border: 1px solid burlywood;
+  border-left: 1px solid burlywood;
 }
 
 .HeaderRow {
   display: flex;
-  border-bottom: 1px solid burlywood;
+  border-top: 1px solid burlywood;
   height: 30px;
+  width: min-content;
 }
 
 .HeaderCell {
+  background-color: bisque;
   border-right: 1px solid burlywood;
   padding: 5px;
   white-space: nowrap;
@@ -28,9 +32,14 @@
 .DataRow {
   display: flex;
   border-bottom: 1px solid burlywood;
-  height: 25px;
+  height: 30px;
+  width: min-content;
 }
 
 .Cell {
   border-right: 1px solid burlywood;
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

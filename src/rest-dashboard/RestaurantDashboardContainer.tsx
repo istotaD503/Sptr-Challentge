@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Grid } from "../common/Grid";
-import { RestDashBoardState, Sample, RestDashBoardColDefs } from "../interfaces/Restaurant";
+import { RestDashBoardState, RestDashBoardColDefs } from "../interfaces/Restaurant";
+import { TestData } from "../test-data";
 
 export class RestDashboardContainer extends Component<{}, RestDashBoardState> {
 
   constructor(props: {}) {
     super(props);
     this.state = {
-      restaurants: Sample,
+      restaurants: TestData,
       colDefs: RestDashBoardColDefs
     }
   }

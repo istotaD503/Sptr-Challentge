@@ -1,4 +1,4 @@
-export const testData = [
+export const TestData = [
     {
         "id": "f223fdd0-4adc-423e-9747-980a66c256ca",
         "name": "Old Hickory Steakhouse",

@@ -11,7 +11,7 @@ export class Cell<T> extends React.Component<CellProps<T>, never> {
     return (
         <div>
           { !colDef.hide &&
-            <div className="HeaderCell" style={ { width: colDef.width || '200px' } } title={ cellValue }>
+            <div className="Cell" style={ { width: colDef.width || '200px' } } title={ cellValue }>
               { cellValue }
             </div>
           }
