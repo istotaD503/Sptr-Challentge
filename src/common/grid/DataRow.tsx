@@ -1,5 +1,5 @@
 import React from "react";
-import { RowProps } from "../interfaces/Restaurant";
+import { RowProps } from "../../interfaces/Restaurant";
 import { Cell } from "./Cell";
 
 export class DataRow<T extends string> extends React.Component<RowProps<T>, never> {

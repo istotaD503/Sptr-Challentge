@@ -1,5 +1,5 @@
 import React from "react";
-import { ColDef } from "../interfaces/Restaurant";
+import { ColDef } from "../../interfaces/Restaurant";
 
 export class HeaderRow<T extends string> extends React.Component<{ colDefs: ColDef<T>[] }, never> {
 

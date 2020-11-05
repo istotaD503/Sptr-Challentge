@@ -1,5 +1,5 @@
 import React from "react";
-import { GridProps } from "../interfaces/Restaurant";
+import { GridProps } from "../../interfaces/Restaurant";
 import { HeaderRow } from "./HeaderRow";
 import { DataRow } from "./DataRow";
 

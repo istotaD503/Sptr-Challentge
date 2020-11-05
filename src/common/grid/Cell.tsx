@@ -1,5 +1,5 @@
 import React from "react";
-import { CellProps } from "../interfaces/Restaurant";
+import { CellProps } from "../../interfaces/Restaurant";
 
 export class Cell<T> extends React.Component<CellProps<T>, never> {
   constructor(props: CellProps<T>) {

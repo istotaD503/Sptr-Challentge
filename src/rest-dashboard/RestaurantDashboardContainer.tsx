@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Grid } from "../common/Grid";
+import { Grid } from "../common/grid/Grid";
 import { RestDashBoardState, RestDashBoardColDefs, RestaurantRow } from "../interfaces/Restaurant";
 import { TestData } from "../test-data";
-import { Search } from "./search/Search";
+import { Search } from "../common/search/Search";
 
 export class RestDashboardContainer extends Component<{}, RestDashBoardState> {
 
