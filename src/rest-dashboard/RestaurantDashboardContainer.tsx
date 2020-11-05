@@ -7,7 +7,7 @@ export class RestDashboardContainer extends Component<{}, RestDashBoardState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      restaurants: [Sample, Sample],
+      restaurants: Sample,
       colDefs: RestDashBoardColDefs
     }
   }

@@ -7,9 +7,14 @@ export class Cell<T> extends React.Component<CellProps<T>, never> {
   }
   render() {
     const { record, colDef } = this.props;
+    const cellValue = record[colDef.field];
     return (
-        <div className="HeaderCell" style={ { width: colDef.width || '100px' } }>
-            { record[colDef.field] }
+        <div>
+          { !colDef.hide &&
+            <div className="HeaderCell" style={ { width: colDef.width || '200px' } } title={ cellValue }>
+              { cellValue }
+            </div>
+          }
         </div>
         )
   }

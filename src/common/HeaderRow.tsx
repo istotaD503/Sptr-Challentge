@@ -12,8 +12,10 @@ export class HeaderRow<T extends string> extends React.Component<GridProps<T>, n
     return (
         <div className="HeaderRow">
             {
-                colDefs.map(colDef => {
-                    return <div className="HeaderCell" style={ { width: colDef.width || '100px' } }>{ colDef.header }</div>
+                colDefs.map((colDef, id) => {
+                    return colDef.hide ?
+                            <div key={id}></div> :
+                            <div className="HeaderCell" key={id} style={ { width: colDef.width || '200px' } }>{ colDef.header }</div>
                 })
             }
         </div>
