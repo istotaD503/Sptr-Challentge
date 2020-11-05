@@ -1,3 +1,8 @@
+export interface SearchProps {
+  handleChange: (e: string) => void;
+  handleApply: () => void;
+}
+
 export interface Restaurant {
   id: string;
   name: string;
@@ -29,11 +34,14 @@ export interface ColDef<T> {
 export interface RestDashBoardState {
   restaurants: RestaurantRow[];
   colDefs: ColDef<keyof RestaurantRow>[];
+  searchTerm: string|undefined;
+  activeSearchTerm: string|undefined;
 }
 
 export interface GridProps<T> {
   data: any[];
   colDefs: ColDef<T>[];
+  globalSearch: (rowData: any) => boolean;
 }
 
 export interface RowProps<T extends string> {

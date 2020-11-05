@@ -10,11 +10,11 @@ export class Grid<T extends string> extends React.Component<GridProps<T>, never>
   }
 
   render() {
-    const { data, colDefs } = this.props;
+    const { data, colDefs, globalSearch } = this.props;
     return (
         <div className="Grid">
-            <HeaderRow data={data} colDefs={colDefs}></HeaderRow>
-            {data.map((rest: any) => {
+            <HeaderRow colDefs={colDefs}></HeaderRow>
+            {data.filter(globalSearch).map((rest: any) => {
                 return <DataRow key={rest.id} record={rest} colDefs={colDefs}></DataRow>
             })}
         </div>

@@ -1,9 +1,9 @@
 import React from "react";
-import { GridProps } from "../interfaces/Restaurant";
+import { ColDef } from "../interfaces/Restaurant";
 
-export class HeaderRow<T extends string> extends React.Component<GridProps<T>, never> {
+export class HeaderRow<T extends string> extends React.Component<{ colDefs: ColDef<T>[] }, never> {
 
-    constructor(props: GridProps<T>) {
+    constructor(props:{ colDefs: ColDef<T>[] }) {
         super(props)
     }
 
