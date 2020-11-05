@@ -1,9 +1,9 @@
 import React from "react";
 import { GridProps } from "../interfaces/Restaurant";
 
-export class HeaderRow extends React.Component<GridProps, never> {
+export class HeaderRow<T extends string> extends React.Component<GridProps<T>, never> {
 
-    constructor(props: GridProps) {
+    constructor(props: GridProps<T>) {
         super(props)
     }
 
@@ -13,7 +13,7 @@ export class HeaderRow extends React.Component<GridProps, never> {
         <div className="HeaderRow">
             {
                 colDefs.map(colDef => {
-                    return <div className="HeaderCell" style={ { padding: '5px' } }>{ colDef.header }</div>
+                    return <div className="HeaderCell" style={ { width: colDef.width || '100px' } }>{ colDef.header }</div>
                 })
             }
         </div>

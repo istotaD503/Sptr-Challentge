@@ -15,29 +15,50 @@ export interface Restaurant {
   attire: string;
 }
 
-export interface ColDef {
-  field: string;
+export interface RestaurantRow extends Restaurant {
+  coordinates?: string;
+}
+
+export interface ColDef<T> {
+  field: T;
   header: string;
+  width?: number;
 }
 
 export interface RestDashBoardState {
-  restaurants: Restaurant[];
-  colDefs: ColDef[];
+  restaurants: RestaurantRow[];
+  colDefs: ColDef<keyof RestaurantRow>[];
 }
 
-export interface GridProps {
+export interface GridProps<T> {
     data: any[];
-    colDefs: ColDef[];
+    colDefs: ColDef<T>[];
 }
 
-export const RestDashBoardColDefs: ColDef[] = [
+export interface RowProps<T extends string> {
+    record: any;
+    colDefs: ColDef<T>[];
+}
+
+export interface CellProps<T> {
+    record: any;
+    colDef: ColDef<T>;
+}
+
+// keys are types by coldefs
+
+export const RestDashBoardColDefs: ColDef<keyof RestaurantRow>[] = [
   {
     field: "id",
-    header: "ID",
+    header: "ID"
   },
   {
     field: "name",
     header: "Name",
+  },
+  {
+    field: "address1",
+    header: "Adress",
   },
   {
     field: "city",
@@ -46,6 +67,38 @@ export const RestDashBoardColDefs: ColDef[] = [
   {
     field: "state",
     header: "State",
+  },
+  {
+    field: "zip",
+    header: "Zip Code",
+  },
+  {
+    field: "coordinates",
+    header: "Coordinates",
+  },
+  {
+    field: "telephone",
+    header: "Phone",
+  },
+  {
+    field: "tags",
+    header: "Tags",
+  },
+  {
+    field: "website",
+    header: "Phone",
+  },
+  {
+    field: "genre",
+    header: "Genre",
+  },
+  {
+    field: "hours",
+    header: "Schedule",
+  },
+  {
+    field: "attire",
+    header: "Attire",
   }
 ];
 

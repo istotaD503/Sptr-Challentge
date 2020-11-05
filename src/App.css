@@ -19,9 +19,14 @@
 
 .HeaderCell {
   border-right: 1px solid burlywood;
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .DataRow {
+  display: flex;
   border-bottom: 1px solid burlywood;
   height: 25px;
 }
