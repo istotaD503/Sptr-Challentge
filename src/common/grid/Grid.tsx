@@ -17,8 +17,8 @@ export class Grid<T extends string> extends React.Component<GridProps<T>, never>
   }
 
   render() {
-    const { data, colDefs, globalSearch, page } = this.props;
-    const filtered = this.paginate(page, data.filter(globalSearch));
+    const { data, colDefs, page } = this.props;
+    const filtered = this.paginate(page, data);
     return (
         <div className="Grid">
             <HeaderRow colDefs={colDefs}></HeaderRow>
@@ -31,7 +31,6 @@ export class Grid<T extends string> extends React.Component<GridProps<T>, never>
                 </div> :
                 <NoResultsPlug></NoResultsPlug>
             }
-
         </div>
         );
   }

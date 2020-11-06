@@ -37,18 +37,17 @@ export interface PaginationControlProps {
 }
 
 export interface RestDashBoardState {
+  initialRestaurants: RestaurantRow[];
   restaurants: RestaurantRow[];
   colDefs: ColDef<keyof RestaurantRow>[];
-  searchTerm: string|undefined;
-  activeSearchTerm: string|undefined;
-  stateFilter: string;
+  searchTerm: string;
+  stateFilter: {name: string, abbrev: string};
   page: number;
 }
 
 export interface GridProps<T> {
   data: any[];
   colDefs: ColDef<T>[];
-  globalSearch: (rowData: any) => boolean;
   page: number;
 }
 

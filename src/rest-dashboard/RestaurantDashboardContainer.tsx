@@ -1,100 +1,114 @@
 import React, { Component } from "react";
 import { Grid } from "../common/grid/Grid";
 import { RestDashBoardState, RestDashBoardColDefs, RestaurantRow } from "../interfaces/Restaurant";
-import { TestData } from "../test-data";
+import { TestData, states } from "../test-data";
 import { Search } from "../common/search/Search";
 import { Filter } from "../common/filter/Filter";
 import { PaginationControl } from "../common/pagination/Pagination";
 
 export class RestDashboardContainer extends Component<{}, RestDashBoardState> {
-
-  private static searchFields: Array<keyof RestaurantRow> = ['name', 'city', 'genre'];
-  private states = [ {name: 'New York', abbrev: 'NY'}, {name: 'Colorado', abbrev: 'CO'}, {name: 'Arizona', abbrev: 'AZ'} ];
+  private static searchFields: Array<keyof RestaurantRow> = [
+    "name",
+    "city",
+    "genre",
+  ];
 
   constructor(props: {}) {
     super(props);
     this.state = {
+      initialRestaurants: TestData,
       restaurants: TestData,
       colDefs: RestDashBoardColDefs,
-      searchTerm: undefined,
-      activeSearchTerm: undefined,
-      stateFilter: 'All States',
-      page: 1
-    }
+      searchTerm: "",
+      stateFilter: Object.assign({}, states[0]),
+      page: 1,
+    };
   }
 
   private setSearchTerm(value: string): void {
     this.setState({
-      searchTerm: value
+      searchTerm: value,
     });
     if (!value) {
       this.applySearch();
     }
   }
 
-  private applySearch(): void {
-    this.setState({
-      activeSearchTerm: this.state.searchTerm,
-      page: 1
-    });
-  }
-
-  // move to grid
-  private globalSearch(rowData: RestaurantRow): boolean {
-    if (!this.state.activeSearchTerm && (this.state.stateFilter === 'All States')) { return true; }
-    const searchPass = RestDashboardContainer.searchFields.some(field => {
-      const cellValue = rowData[field];
-      if (cellValue && this.state.activeSearchTerm) {
-        const normalizedValue = cellValue.toLowerCase();
-        const normalizedSearchTerm = this.state.activeSearchTerm.toLowerCase()
-        return normalizedValue.includes(normalizedSearchTerm);
-      }
-      return false;
-    });
-
-    const filterPass = this.state.stateFilter === 'All States' ||
-      rowData.state === this.states.find(s => s.name === this.state.stateFilter)?.abbrev;
-
-    return !!(this.state.activeSearchTerm && searchPass && filterPass);
-  }
-
   private selectStateFilter(e: string): void {
-    const stateAbbrev = this.states.find(s => s.name === e)?.abbrev;
-    if (stateAbbrev) {
+    const state = states.find((s) => s.name === e);
+    if (state) {
       this.setState({
-        stateFilter: e
+        stateFilter: Object.assign({}, state),
       });
-      this.applySearch();
+      const filteredRestaurants = this.globalSearch(state);
+      this.setState({
+        page: 1,
+        restaurants: filteredRestaurants
+      });
     }
   }
 
-  private switchPage(e: boolean): void {
+  private applySearch(): void {
+    const filteredRestaurants = this.globalSearch();
     this.setState({
-      page: this.state.page + (e ? 1 : -1)
+      page: 1,
+      restaurants: filteredRestaurants
+    });
+  }
+
+  private switchPage(e: boolean): void {
+    const page = this.state.page === 1 && !e ?
+      1 :
+      this.state.page + (e ? 1 : -1)
+    this.setState({ page });
+  }
+
+  private globalSearch(stateFilter?: { name: string; abbrev: string }): any[] {
+    return this.state.initialRestaurants.filter((rowData) => {
+      const searchPass =
+        !this.state.searchTerm ||
+        RestDashboardContainer.searchFields.some((field) => {
+          const cellValue = rowData[field];
+          if (cellValue && this.state.searchTerm) {
+            const normalizedValue = cellValue.toLowerCase();
+            const normalizedSearchTerm = this.state.searchTerm.toLowerCase();
+            return normalizedValue.includes(normalizedSearchTerm);
+          }
+          return false;
+        });
+
+      const currentFilterAbbrev = (stateFilter || this.state.stateFilter).abbrev;
+      const filterPass = currentFilterAbbrev === "All" || rowData.state === currentFilterAbbrev;
+
+      return searchPass && filterPass;
     });
   }
 
   render() {
     const { restaurants, colDefs, stateFilter, page } = this.state;
-    return <div className="RestDashboard">
-      <div className="GridHeader">
-        <Search
-          handleChange={e => this.setSearchTerm(e)}
-          handleApply={() => this.applySearch()}>
-        </Search>
-        <Filter
-          title={stateFilter}
-          list={this.states}
-          selectStateFilter={e => this.selectStateFilter(e)}>
-        </Filter>
-        <PaginationControl page={page} switchPage={e => this.switchPage(e)}></PaginationControl>
+    return (
+      <div className="RestDashboard">
+        <div className="GridHeader">
+          <Search
+            handleChange={(e) => this.setSearchTerm(e)}
+            handleApply={() => this.applySearch()}
+          ></Search>
+          <Filter
+            title={stateFilter.name}
+            list={states}
+            selectStateFilter={(e) => this.selectStateFilter(e)}
+          ></Filter>
+          <PaginationControl
+            page={page}
+            switchPage={(e) => this.switchPage(e)}
+          ></PaginationControl>
+        </div>
+        <Grid
+          page={page}
+          data={restaurants}
+          colDefs={colDefs}
+        ></Grid>
       </div>
-      <Grid
-        page={page}
-        data={restaurants}
-        colDefs={colDefs}
-        globalSearch={(rowData) => this.globalSearch(rowData)}>
-      </Grid>
-    </div>
+    );
   }
 }
