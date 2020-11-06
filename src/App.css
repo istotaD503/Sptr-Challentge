@@ -1,3 +1,7 @@
+.App {
+  /* position: fixed; */
+}
+
 .AppHeader {
   background-color: bisque;
   margin: 0rem 1rem;
@@ -21,7 +25,7 @@
 
 .DropdownListHeader {
   display: flex;
-  border: 1px solid grey;
+  border: 1px solid burlywood;
   border-radius: 3px;
   padding: 2px 5px;
   cursor: pointer;
@@ -30,6 +34,13 @@
 
 .DropdownListHeaderTitle {
 
+}
+
+.NoResultsPlug {
+  display: flex;
+  justify-content: center;
+  border: 1px solid burlywood;
+  padding: 20px;
 }
 
 .DropdownListItem {
@@ -51,7 +62,7 @@
   list-style-type: none;
   position: absolute;
   background: white;
-  border: 1px solid grey;
+  border: 1px solid burlywood;
   border-radius: 3px;
 }
 
