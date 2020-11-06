@@ -10,9 +10,15 @@ export class Grid<T extends string> extends React.Component<GridProps<T>, never>
       super(props)
   }
 
+  private paginate(page: number, data: any[]): any[] {
+    const start = page * 10 - 10;
+    const end = page * 10;
+    return data.slice(start, end);
+  }
+
   render() {
-    const { data, colDefs, globalSearch } = this.props;
-    const filtered = data.filter(globalSearch);
+    const { data, colDefs, globalSearch, page } = this.props;
+    const filtered = this.paginate(page, data.filter(globalSearch));
     return (
         <div className="Grid">
             <HeaderRow colDefs={colDefs}></HeaderRow>

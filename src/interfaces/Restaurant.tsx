@@ -31,18 +31,25 @@ export interface ColDef<T> {
   hide?: boolean;
 }
 
+export interface PaginationControlProps {
+  page: number;
+  switchPage: (e: boolean) => void;
+}
+
 export interface RestDashBoardState {
   restaurants: RestaurantRow[];
   colDefs: ColDef<keyof RestaurantRow>[];
   searchTerm: string|undefined;
   activeSearchTerm: string|undefined;
   stateFilter: string;
+  page: number;
 }
 
 export interface GridProps<T> {
   data: any[];
   colDefs: ColDef<T>[];
   globalSearch: (rowData: any) => boolean;
+  page: number;
 }
 
 export interface RowProps<T extends string> {

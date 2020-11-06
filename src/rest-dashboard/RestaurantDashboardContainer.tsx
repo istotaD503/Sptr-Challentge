@@ -4,6 +4,7 @@ import { RestDashBoardState, RestDashBoardColDefs, RestaurantRow } from "../inte
 import { TestData } from "../test-data";
 import { Search } from "../common/search/Search";
 import { Filter } from "../common/filter/Filter";
+import { PaginationControl } from "../common/pagination/Pagination";
 
 export class RestDashboardContainer extends Component<{}, RestDashBoardState> {
 
@@ -17,7 +18,8 @@ export class RestDashboardContainer extends Component<{}, RestDashBoardState> {
       colDefs: RestDashBoardColDefs,
       searchTerm: undefined,
       activeSearchTerm: undefined,
-      stateFilter: 'All States'
+      stateFilter: 'All States',
+      page: 1
     }
   }
 
@@ -32,7 +34,8 @@ export class RestDashboardContainer extends Component<{}, RestDashBoardState> {
 
   private applySearch(): void {
     this.setState({
-      activeSearchTerm: this.state.searchTerm
+      activeSearchTerm: this.state.searchTerm,
+      page: 1
     });
   }
 
@@ -65,20 +68,33 @@ export class RestDashboardContainer extends Component<{}, RestDashBoardState> {
     }
   }
 
+  private switchPage(e: boolean): void {
+    this.setState({
+      page: this.state.page + (e ? 1 : -1)
+    });
+  }
+
   render() {
-    const { restaurants, colDefs, stateFilter } = this.state;
+    const { restaurants, colDefs, stateFilter, page } = this.state;
     return <div className="RestDashboard">
       <div className="GridHeader">
         <Search
           handleChange={e => this.setSearchTerm(e)}
-          handleApply={() => this.applySearch()}
-        ></Search>
+          handleApply={() => this.applySearch()}>
+        </Search>
         <Filter
           title={stateFilter}
           list={this.states}
-          selectStateFilter={e => this.selectStateFilter(e)}></Filter>
+          selectStateFilter={e => this.selectStateFilter(e)}>
+        </Filter>
+        <PaginationControl page={page} switchPage={e => this.switchPage(e)}></PaginationControl>
       </div>
-      <Grid data={restaurants} colDefs={colDefs} globalSearch={(rowData) => this.globalSearch(rowData)}></Grid>
+      <Grid
+        page={page}
+        data={restaurants}
+        colDefs={colDefs}
+        globalSearch={(rowData) => this.globalSearch(rowData)}>
+      </Grid>
     </div>
   }
 }
